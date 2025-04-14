@@ -5,6 +5,7 @@ import { DEFAULT_LIMIT } from "@/constants";
 import { trpc } from "@/trpc/client";
 import { ErrorBoundary } from "react-error-boundary";
 import { Suspense } from "react";
+import { format } from "date-fns";
 import { InfiniteScroll } from "@/components/infinite-scroll";
 import {
   Table,
@@ -15,6 +16,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { VideoThumbnail } from "@/modules/videos/ui/components/video-thumbnail";
+import { snakeCaseToTitle } from "@/lib/utils";
+import { Globe2, LockIcon } from "lucide-react";
 
 export const VideosSection = () => {
   return (
@@ -81,11 +84,24 @@ const VideosSectionSuspense = () => {
                         </span>
                       </div>
                     </TableCell>
-                    <TableCell>Visibility</TableCell>
                     <TableCell>
-                      <div className="flex items-center">{video.muxStatus}</div>
+                      <div className="flex items-center">
+                        {video.visibility === "private" ? (
+                          <LockIcon className="size-4 mr-2" />
+                        ) : (
+                          <Globe2 className="size-4 mr-2" />
+                        )}
+                        {snakeCaseToTitle(video.visibility)}
+                      </div>
                     </TableCell>
-                    <TableCell>Date</TableCell>
+                    <TableCell>
+                      <div className="flex items-center">
+                        {snakeCaseToTitle(video.muxStatus || "error")}
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-sm truncate">
+                      {format(new Date(video.createdAt), "d MMM yyyy")}
+                    </TableCell>
                     <TableCell>View</TableCell>
                     <TableCell>Comments</TableCell>
                     <TableCell>Likes</TableCell>

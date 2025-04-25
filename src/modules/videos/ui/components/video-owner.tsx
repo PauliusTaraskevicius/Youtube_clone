@@ -39,7 +39,7 @@ export const VideoOwner = ({ user, videoId }: VideoOwnerProps) => {
           <Link href={`/studio/videos/${videoId}`}>Edit video</Link>
         </Button>
       ) : (
-        <Button>
+        <Button asChild>
           <SubscriptionButton
             onClick={onClick}
             disabled={isPending || !isLoaded}

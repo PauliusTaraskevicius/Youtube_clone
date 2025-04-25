@@ -35,6 +35,7 @@ export const videosRouter = createTRPCRouter({
       if (user) {
         userId = user.id;
       }
+
       const viewerReactions = db.$with("viewer_reactions").as(
         db
           .select({
@@ -53,7 +54,7 @@ export const videosRouter = createTRPCRouter({
       );
 
       const [existingVideo] = await db
-        .with(viewerReactions)
+        .with(viewerReactions, viewerSubscriptions)
         .select({
           ...getTableColumns(videos),
           user: {

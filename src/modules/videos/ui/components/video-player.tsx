@@ -8,6 +8,11 @@ interface VideoPlayerProps {
   autoPlay?: boolean;
   onPlay?: () => void;
 }
+
+export const VideoPlayerSkeleleton = () => {
+  return <div className="aspect-video bg-black rounded-xl overflow-hidden" />;
+};
+
 export const VideoPlayer = ({
   playbackId,
   thumbnailUrl,

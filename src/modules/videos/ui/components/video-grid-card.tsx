@@ -1,11 +1,22 @@
 import Link from "next/link";
 import { VideoGetManyOutput } from "../../types";
-import { VideoThumbnail } from "./video-thumbnail";
-import { VideoInfo } from "./video-info";
+import { VideoThumbnail, VideoThumbnailSkeleton } from "./video-thumbnail";
+import VideoInfoSkeleton, { VideoInfo } from "./video-info";
 
 interface VideoGridCardProps {
   onRemove?: () => void;
   data: VideoGetManyOutput["items"][number];
+}
+
+import React from "react";
+
+export default function VideoGridCardSkeleton() {
+  return (
+    <div className="flex flex-col gap-2 w-full">
+      <VideoThumbnailSkeleton />
+      <VideoInfoSkeleton />
+    </div>
+  );
 }
 
 export const VideoGridCard = ({ data, onRemove }: VideoGridCardProps) => {
